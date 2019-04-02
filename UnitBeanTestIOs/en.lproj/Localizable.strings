@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  UnitBeanTestIOs
+
+  Created by Admin on 02.04.2019.
+  Copyright © 2019 Admin. All rights reserved.
+*/
+
+"Error" = "Error";
+"Error communicating with the server, try updating the connection. Detail: %@" = "Error communicating with the server, try updating the connection. Detail: %@";
+"The transition to the specified article is not possible" = "The transition to the specified article is not possible";
+"Cancel" = "Cancel";
+"Update" = "Update";
+"State" = "State";
+"Unitbean" = "Unitbean";
+"OK" = "OK";
