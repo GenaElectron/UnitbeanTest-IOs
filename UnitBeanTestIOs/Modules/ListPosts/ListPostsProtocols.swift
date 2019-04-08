@@ -10,6 +10,7 @@ import UIKit
 
 protocol ListPostsViewProtocol: class {
     var presenter: ListPostsPresenterProtocol! { set get }
+    func configureIfNeeded()
     func showAlertView(with title: String, and message: String, buttonTitle: String, actionHandler: @escaping VoidClosure )
     func setTitleText(with titleText: String)
     func reloadData()
@@ -27,8 +28,8 @@ protocol ListPostsPresenterProtocol: class {
 }
 
 protocol ListPostsInteractorProtocol: class {
-    func getAllPosts()
     var  postDataModels: [Post] { get }
+    func getAllPosts()
 }
 
 protocol ListPostsRouterProtocol: class {
@@ -41,4 +42,5 @@ enum RouterListsPost {
 
 protocol ListPostsConfiguratorProtocol: class {
     func configure(with viewController: ListPostsViewController)
+    func configureDelegates(with viewController: ListPostsViewController)
 }

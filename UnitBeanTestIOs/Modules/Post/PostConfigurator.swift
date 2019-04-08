@@ -9,7 +9,7 @@
 import UIKit
 
 class PostConfigurator: PostConfiguratorProtocol {
-    
+
     // MARK: - PostConfiguratorProtocol methods
     
     func configure(with viewController: PostViewController) {
@@ -26,9 +26,12 @@ class PostConfigurator: PostConfiguratorProtocol {
         presenter.interactor = interactor
         //presenter (-> strong) router
         presenter.router = router
-        
-        //viewController.tableView.delegate = presenter
-        viewController.tableView.dataSource = presenter
+    }
+    
+    func configureDelegates(with viewController: PostViewController) {
+        if let presenter = viewController.presenter as? UITableViewDataSource {
+            viewController.tableView.dataSource = presenter
+        }
     }
     
     deinit {

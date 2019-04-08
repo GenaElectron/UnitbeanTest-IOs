@@ -59,12 +59,12 @@
                                 <state key="normal" title="Button" image="commentIcon"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-DE-FVD">
-                                <rect key="frame" x="295" y="154.5" width="9" height="17"/>
+                                <rect key="frame" x="295" y="153.5" width="9" height="17"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                 </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                <color key="textColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -82,7 +82,7 @@
                             <constraint firstAttribute="trailing" secondItem="YCE-DE-FVD" secondAttribute="trailing" constant="16" id="h3q-4t-hti"/>
                             <constraint firstItem="UkN-nD-uUt" firstAttribute="leading" secondItem="vFg-N3-grA" secondAttribute="leading" constant="16" id="imA-G9-31i"/>
                             <constraint firstItem="aSd-Hb-sLo" firstAttribute="leading" secondItem="vFg-N3-grA" secondAttribute="leading" constant="16" id="jS7-hr-dwh"/>
-                            <constraint firstItem="YCE-DE-FVD" firstAttribute="centerY" secondItem="cDV-oK-sO4" secondAttribute="centerY" id="rb8-CK-GUj"/>
+                            <constraint firstItem="YCE-DE-FVD" firstAttribute="centerY" secondItem="cDV-oK-sO4" secondAttribute="centerY" constant="-1" id="rb8-CK-GUj"/>
                             <constraint firstItem="cDV-oK-sO4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="cE3-Zz-MBJ" secondAttribute="bottom" constant="16" id="ugd-oo-fWZ"/>
                         </constraints>
                     </view>
@@ -107,6 +107,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="commentIcon" width="512" height="512"/>
+        <image name="commentIcon" width="100" height="100"/>
     </resources>
 </document>

@@ -9,7 +9,7 @@
 import UIKit
 
 class ListPostsConfigurator: ListPostsConfiguratorProtocol {
-    
+
     // MARK: - ListPostsConfiguratorProtocol methods
     
     func configure(with viewController: ListPostsViewController) {
@@ -26,8 +26,14 @@ class ListPostsConfigurator: ListPostsConfiguratorProtocol {
         presenter.interactor = interactor
         //presenter (-> strong) router
         presenter.router = router
-        
-        viewController.tableView.delegate = presenter
-        viewController.tableView.dataSource = presenter
+    }
+    
+    func configureDelegates(with viewController: ListPostsViewController) {
+        if let presenter = viewController.presenter as? UITableViewDataSource {
+            viewController.tableView.dataSource = presenter
+        }
+        if let presenter = viewController.presenter as? UITableViewDelegate {
+            viewController.tableView.delegate = presenter
+        }
     }
 }

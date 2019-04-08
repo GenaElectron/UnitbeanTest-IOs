@@ -9,7 +9,7 @@
 import UIKit
 
 class PostInteractor: PostInteractorProtocol {
-
+    
     weak var presenter: PostPresenterProtocol!
     
     let serverService: ServerServiceProtocol = ServerService()
@@ -18,14 +18,20 @@ class PostInteractor: PostInteractorProtocol {
         self.presenter = presenter
     }
     
+    private var postId: Int = 0
+    
     var postDataModel: Post?
     
     var commentDataModels: [Comment] = []
     
     // MARK: - PostInteractorProtocol methods
     
-    func getPost(withId id: Int) {
-        serverService.getPost(withId: id) {[weak self] post, error in
+    func configureWithPostId(id: Int) {
+        self.postId = id
+    }
+    
+    func getPost() {
+        serverService.getPost(withId: self.postId) {[weak self] post, error in
             if (error != nil)  {
                 self?.presenter.showAlert(with: error.debugDescription)
                 return
@@ -35,8 +41,8 @@ class PostInteractor: PostInteractorProtocol {
         }
     }
     
-    func getComments(withPostId id: Int) {
-        serverService.getComments(withPostId: id) {[weak self] comments, error in
+    func getComments() {
+        serverService.getComments(withPostId: self.postId) {[weak self] comments, error in
             if (error != nil)  {
                 self?.presenter.showAlert(with: error.debugDescription)
                 return

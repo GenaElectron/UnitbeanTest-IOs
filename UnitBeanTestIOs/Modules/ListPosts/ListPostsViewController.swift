@@ -14,11 +14,12 @@ class ListPostsViewController: UIViewController, ListPostsViewProtocol {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var presenter: ListPostsPresenterProtocol!
-    var configurator: ListPostsConfiguratorProtocol = ListPostsConfigurator()
+    var configurator: ListPostsConfiguratorProtocol!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configurator.configure(with: self)
+        self.configureIfNeeded()
+        self.configurator.configureDelegates(with: self)
         self.registerCells()
         self.configureTableView()
         self.presenter.configureView()
@@ -42,6 +43,12 @@ class ListPostsViewController: UIViewController, ListPostsViewProtocol {
     
     // MARK: - ListPostsViewProtocol methods
     
+    func configureIfNeeded() {
+        guard configurator == nil else { return }
+        self.configurator = ListPostsConfigurator()
+        self.configurator.configure(with: self)
+    }
+
     func showAlertView(with title: String, and message: String, buttonTitle: String, actionHandler: @escaping VoidClosure) {
         DispatchQueue.main.async {
             self.showAlert(with: title, and: message, buttonTitle: buttonTitle, actionHandler: actionHandler)
@@ -74,7 +81,8 @@ class ListPostsViewController: UIViewController, ListPostsViewProtocol {
     
     func showPostScene(withPostId id: Int, animated: Bool) {
         let postViewController = PostViewController()
-        postViewController.configure(withPostId: id)
+        postViewController.configureIfNeeded()
+        postViewController.presenter.configureInteractorWithPostId(id: id)
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(postViewController, animated: animated)
         }

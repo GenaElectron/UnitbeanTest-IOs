@@ -52,6 +52,9 @@ class ServerService: ServerServiceProtocol {
     func getAllPost(completion: @escaping OptionalItemClosureWithError<[Post]>) {
         if let URL = URL(string: URLGetPosts()) {
             getJSON(URL: URL) { (json, error) in
+                
+                guard error == nil else {completion(nil,error); return}
+                
                 if let arrayOfDict = json as? [Dictionary<String,Any>] {
                     var posts: [Post] = []
                     arrayOfDict.forEach({ posts.append(Post(fromDictionary: $0))})
@@ -69,6 +72,9 @@ class ServerService: ServerServiceProtocol {
 
         if let URL = URL(string: URLString) {
             getJSON(URL: URL) { (json, error) in
+                
+                guard error == nil else {completion(nil,error); return}
+                
                 if let dict = json as? Dictionary<String,Any> {
                     let post = Post(fromDictionary: dict)
                     completion(post,error)
@@ -85,6 +91,9 @@ class ServerService: ServerServiceProtocol {
 
         if let URL = URL(string: URLString) {
             getJSON(URL: URL) { (json, error) in
+                
+                guard error == nil else {completion(nil,error); return}
+                
                 if let arrayOfDict = json as? [Dictionary<String,Any>] {
                     var comments: [Comment] = []
                     arrayOfDict.forEach({ comments.append(Comment(fromDictionary: $0))})

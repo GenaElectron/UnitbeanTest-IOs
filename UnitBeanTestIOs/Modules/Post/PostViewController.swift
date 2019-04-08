@@ -14,19 +14,14 @@ class PostViewController: UIViewController, PostViewProtocol {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var presenter: PostPresenterProtocol!
-    var configurator: PostConfiguratorProtocol = PostConfigurator()
+    var configurator: PostConfiguratorProtocol!
     
     private var bottomView: UIView?
     
-    private var postId: Int = 0
-    
-    func getPostId() -> Int {
-        return postId
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configurator.configure(with: self)
+        self.configureIfNeeded()
+        self.configurator.configureDelegates(with: self)
         self.presenter.configureView()
         self.configureTableView()
         self.registerCells()
@@ -47,9 +42,10 @@ class PostViewController: UIViewController, PostViewProtocol {
     
     // MARK: - PostViewProtocol methods
     
-    func configure(withPostId id: Int) {
-        self.postId = id
-        //print("post id = \(id)")
+    func configureIfNeeded() {
+        guard configurator == nil else { return }
+        self.configurator = PostConfigurator()
+        self.configurator.configure(with: self)
     }
     
     func showAlertViewWithCancel(with title: String, and message: String, buttonTitle: String, actionHandler: @escaping VoidClosure) {

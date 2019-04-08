@@ -14,8 +14,8 @@ class PostPresenter: NSObject, PostPresenterProtocol {
     
     var interactor: PostInteractorProtocol!
     var router: PostRouterProtocol!
-    
-    private var models: [PostViewModel] = []
+        
+    private var models: [ViewModel] = []
     
     required init(view: PostViewProtocol) {
         self.view = view
@@ -23,11 +23,15 @@ class PostPresenter: NSObject, PostPresenterProtocol {
     
     // MARK: - PostPresenterProtocol methods
     
+    func configureInteractorWithPostId(id: Int) {
+        self.interactor.configureWithPostId(id: id)
+    }
+    
     func configureView() {
         let titleText = NSLocalizedString("State", comment: "")
         self.view.setTitleText(with: titleText)
         self.view.showSpinner()
-        self.interactor.getPost(withId: self.view.getPostId())
+        self.interactor.getPost()
     }
     
     func showAlert(with text: String) {
@@ -46,18 +50,18 @@ class PostPresenter: NSObject, PostPresenterProtocol {
     
     func showPost() {
         if let post = self.interactor.postDataModel{
-            models.append(PostViewModel.Post(data: post))
+            models.append(ViewModel.Post(data: post))
             self.view.reloadData()
             self.view.hideSpinner()
             self.view.addFotterView()
-            self.interactor.getComments(withPostId: self.view.getPostId())
+            self.interactor.getComments()
         }
     }
     
     func showComment() {
         self.view.removeFotterView()
         self.interactor.commentDataModels.forEach {
-            models.append(PostViewModel.Comment(data: $0))
+            models.append(ViewModel.Comment(data: $0))
         }
         self.view.reloadData()
     }
@@ -65,7 +69,7 @@ class PostPresenter: NSObject, PostPresenterProtocol {
     func repeatShowPost() {
         self.view.showSpinner()
         self.models = []
-        self.interactor.getPost(withId: self.view.getPostId())
+        self.interactor.getPost()
     }
     
     deinit {
@@ -103,7 +107,7 @@ extension PostPresenter: UITableViewDataSource {
 }
 
 extension PostPresenter {
-    enum PostViewModel {
+    enum ViewModel {
         case Post(data: Post)
         case Comment(data: Comment)
     }
